@@ -1,0 +1,86 @@
+{
+    "units": {
+        "BoulderBomb Explosion VFX": {
+            "prefix": "ZA",
+            "baseUnit": "_CUnit",
+            "components": {
+                "unit": {
+                    "unitType": 0
+                },
+                "unitStats": {
+                    "ground": false,
+                    "selectable": false,
+                    "ignoreCollision": true,
+                    "ignorePathing": true
+                },
+                "health": {
+                    "maxHealth": 0
+                }
+            }
+        },
+        "BoulderBomb Projectile": {
+            "prefix": "ZA",
+            "baseUnit": "_CMissile"
+        },
+        "Hero EarthBender": {
+            "prefix": "ZA",
+            "baseUnit": "_CUnit",
+            "components": {
+                "health": {
+                    "maxHealth": 100,
+                    "regeneration": 2,
+                    "regenerationDelay": 0.5
+                },
+                "mana": {
+                    "maxMana": 100,
+                    "regeneration": 2,
+                    "regenerationDelay": 1
+                },
+                "behavior": {
+                    "genericControllableUnit": {
+                        "leashRadius": 30
+                    }
+                }
+            },
+            "references": {
+                "weaponList": [
+                    "Hero EarthBender Weapon"
+                ],
+                "abilityList": [
+                    "BoulderBomb"
+                ]
+            }
+        },
+        "Hero RandomMage": {
+            "baseUnit": "_CUnit",
+            "components": {
+                "health": {
+                    "maxHealth": 100,
+                    "regeneration": 2,
+                    "regenerationDelay": 0.5
+                },
+                "mana": {
+                    "maxMana": 100,
+                    "regeneration": 2,
+                    "regenerationDelay": 1
+                },
+                "behavior": {
+                    "genericControllableUnit": {
+                        "leashRadius": 30
+                    }
+                }
+            },
+            "references": {
+                "weaponList": [
+                    "Hero RandomMage Weapon"
+                ],
+                "abilityList": [
+                    "RandomSpike"
+                ]
+            }
+        },
+        "Hero RandomMage Weapon Missile": {
+            "baseUnit": "_CMissile"
+        }
+    }
+}

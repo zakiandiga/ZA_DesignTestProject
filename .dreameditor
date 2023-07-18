@@ -1,0 +1,24 @@
+{
+    "projectInfo": {
+        "type": 0,
+        "version": "0.0.1",
+        "projectName": "ZA_DesignTestProject",
+        "entryMap": "Maps/EntryMap"
+    },
+    "input": {
+        "keyMappings": [
+            {
+                "name": "Ability01",
+                "key": 113
+            }
+        ]
+    },
+    "assetPack": {
+        "assetPacks": [
+            {
+                "name": "wildsky_legacy",
+                "version": "^3.0.0"
+            }
+        ]
+    }
+}

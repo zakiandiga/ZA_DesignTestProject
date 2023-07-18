@@ -1,0 +1,27 @@
+-- LIBRARIES
+local Core = require("Core")
+
+-- VARIABLES
+local hero_unit = DCEI.Unit("Hero EarthBender")
+
+--Ability Names
+local abilities = {
+    "BoulderBomb", 
+    "EarthStomp", 
+    "EarthElemental"
+}
+
+--TRIGGERS
+function SpawnPlayerHero()
+    DCEI.CreateUnit(1, 1, hero_unit, 15, 15)
+end
+
+function CastAbility01()
+    --cooldown check
+    --mana check
+    local mouse_position = DCEI.GetMouseWorldPosition2D()
+
+    DCEI.CastAbilityAtPosition("BoulderBomb", hero_unit, mouse_position.x, mouse_position.y)
+end
+
+--INITIALIZATION

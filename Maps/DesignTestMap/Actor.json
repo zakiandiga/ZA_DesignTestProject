@@ -1,0 +1,398 @@
+{
+    "actors": {
+        "BoulderBomb Action": {
+            "prefix": "ZA",
+            "parent": "_FX Attack SingleTarget",
+            "actionActor": {
+                "effect": "BoulderBomb Launch",
+                "launchModel": "Hero EarthBender Weapon Launch SFX",
+                "launchModelDetached": true,
+                "impactModel": "BoulderBomb Delay VFX",
+                "impactModelDetached": true
+            }
+        },
+        "BoulderBomb Delay VFX": {
+            "prefix": "ZA",
+            "parent": "_FX OneShot SelfRemoving",
+            "modelActor": {
+                "resource": {
+                    "type": "ParticleAnimation",
+                    "name": "vfx_spell_consecrate_aoe"
+                },
+                "events": [
+                    {
+                        "actorTerm": {
+                            "actorCreate": {}
+                        },
+                        "actions": [
+                            {
+                                "playAnimation": {}
+                            },
+                            {
+                                "createTimer": {
+                                    "name": "FailsafeRemove",
+                                    "duration": 2
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "actorTerm": {
+                            "animationFinish": {}
+                        },
+                        "actions": [
+                            {
+                                "destroy": {}
+                            }
+                        ]
+                    },
+                    {
+                        "actorTerm": {
+                            "onTimer": {
+                                "name": "FailsafeRemove"
+                            }
+                        },
+                        "actions": [
+                            {
+                                "destroy": {}
+                            }
+                        ]
+                    }
+                ],
+                "selectionScale": {
+                    "x": 1,
+                    "y": 1,
+                    "z": 1
+                },
+                "scaleMultiplier": {
+                    "x": 1,
+                    "y": 1,
+                    "z": 1
+                }
+            }
+        },
+        "BoulderBomb Explosion VFX": {
+            "prefix": "ZA",
+            "unitActor": {
+                "resource": {
+                    "type": "ParticleAnimation",
+                    "name": "vfx_shared_explosion_small"
+                },
+                "selectionScale": {
+                    "x": 1,
+                    "y": 1,
+                    "z": 1
+                }
+            }
+        },
+        "BoulderBomb Impact VFX": {
+            "prefix": "ZA",
+            "parent": "_FX OneShot SelfRemoving",
+            "modelActor": {
+                "resource": {
+                    "type": "ParticleAnimation",
+                    "name": "vfx_spell_consecrate_aoe"
+                },
+                "events": [
+                    {
+                        "actorTerm": {
+                            "actorCreate": {}
+                        },
+                        "actions": [
+                            {
+                                "playAnimation": {}
+                            },
+                            {
+                                "createTimer": {
+                                    "name": "FailsafeRemove",
+                                    "duration": 2
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "actorTerm": {
+                            "animationFinish": {}
+                        },
+                        "actions": [
+                            {
+                                "destroy": {}
+                            }
+                        ]
+                    },
+                    {
+                        "actorTerm": {
+                            "onTimer": {
+                                "name": "FailsafeRemove"
+                            }
+                        },
+                        "actions": [
+                            {
+                                "destroy": {}
+                            }
+                        ]
+                    }
+                ],
+                "selectionScale": {
+                    "x": 1,
+                    "y": 1,
+                    "z": 1
+                },
+                "scaleMultiplier": {
+                    "x": 1,
+                    "y": 1,
+                    "z": 1
+                }
+            }
+        },
+        "BoulderBomb Projectile": {
+            "prefix": "ZA",
+            "unitActor": {
+                "resource": {
+                    "type": "ParticleAnimation",
+                    "name": "vfx_lavaooze_volcanicactivity_missile"
+                },
+                "selectionScale": {
+                    "x": 0.75,
+                    "y": 0.75,
+                    "z": 0.75
+                }
+            }
+        },
+        "Hero EarthBender": {
+            "prefix": "ZA",
+            "parent": "_StandardUnit DecayOnDeath",
+            "unitActor": {
+                "resource": {
+                    "type": "GpuAnimation",
+                    "name": "dwarfsmith_infernal",
+                    "priority": 3
+                },
+                "eventMacros": [
+                    "Events StandardUnit Selectable"
+                ],
+                "hostSites": {
+                    "SiteWeapon": {
+                        "offset": {
+                            "forward": 0.5,
+                            "right": 0.5
+                        }
+                    }
+                },
+                "walkAnimationSpeed": 1.75
+            }
+        },
+        "Hero EarthBender Weapon Attack FX": {
+            "prefix": "ZA",
+            "parent": "_FX Attack SingleTarget",
+            "actionActor": {
+                "effect": "Hero RandomMage Weapon Launch",
+                "launchModel": "Hero RandomMage Weapon Launch SFX"
+            }
+        },
+        "Hero EarthBender Weapon Impact FX": {
+            "prefix": "ZA",
+            "parent": "_FX OneShot SelfRemoving",
+            "modelActor": {
+                "resource": {
+                    "type": "ParticleAnimation",
+                    "name": ""
+                }
+            }
+        },
+        "Hero EarthBender Weapon Launch SFX": {
+            "prefix": "ZA",
+            "parent": "_SFX OneShot SelfRemoving",
+            "modelActor": {
+                "resource": {
+                    "type": "Sound",
+                    "name": "ice_mage_missile_launch"
+                }
+            }
+        },
+        "Hero RandomMage": {
+            "prefix": "",
+            "parent": "_StandardUnit DecayOnDeath",
+            "unitActor": {
+                "resource": {
+                    "type": "GpuAnimation",
+                    "name": "elvenmage",
+                    "priority": 3
+                },
+                "eventMacros": [
+                    "Events StandardUnit Selectable"
+                ],
+                "hostSites": {
+                    "SiteWeapon": {
+                        "offset": {
+                            "forward": 0.5,
+                            "right": 0.5
+                        }
+                    }
+                },
+                "walkAnimationSpeed": 1.75
+            }
+        },
+        "Hero RandomMage Weapon Attack FX": {
+            "parent": "_FX Attack SingleTarget",
+            "actionActor": {
+                "effect": "Hero RandomMage Weapon Launch",
+                "launchModel": "Hero RandomMage Weapon Launch SFX"
+            }
+        },
+        "Hero RandomMage Weapon Impact FX": {
+            "parent": "_FX OneShot SelfRemoving",
+            "modelActor": {}
+        },
+        "Hero RandomMage Weapon Launch SFX": {
+            "parent": "_SFX OneShot SelfRemoving",
+            "modelActor": {
+                "resource": {
+                    "type": "Sound",
+                    "name": "ice_mage_missile_launch"
+                }
+            }
+        },
+        "Hero RandomMage Weapon Missile": {
+            "prefix": "",
+            "unitActor": {
+                "resource": {
+                    "type": "ParticleAnimation",
+                    "name": "vfx_icemage_weapon_missile"
+                }
+            }
+        },
+        "RandomSpike Action": {
+            "actionActor": {
+                "effect": "RandomSpike Search",
+                "impactModel": "RandomSpike Impact VFX"
+            }
+        },
+        "RandomSpike Impact VFX": {
+            "parent": "_FX OneShot SelfRemoving",
+            "modelActor": {
+                "resource": {
+                    "type": "ParticleAnimation",
+                    "name": "vfx_spell_icerupture_chill_aura"
+                },
+                "events": [
+                    {
+                        "actorTerm": {
+                            "actorCreate": {}
+                        },
+                        "actions": [
+                            {
+                                "playAnimation": {}
+                            },
+                            {
+                                "createTimer": {
+                                    "name": "FailsafeRemove",
+                                    "duration": 5
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "actorTerm": {
+                            "animationFinish": {}
+                        },
+                        "actions": [
+                            {
+                                "destroy": {}
+                            }
+                        ]
+                    },
+                    {
+                        "actorTerm": {
+                            "onTimer": {
+                                "name": "FailsafeRemove"
+                            }
+                        },
+                        "actions": [
+                            {
+                                "destroy": {}
+                            }
+                        ]
+                    }
+                ],
+                "selectionScale": {
+                    "x": 1,
+                    "y": 1,
+                    "z": 1
+                },
+                "scaleMultiplier": {
+                    "x": 1,
+                    "y": 1,
+                    "z": 1
+                }
+            }
+        },
+        "RandomSpike Persistent VFX": {
+            "parent": "_FX OneShot SelfRemoving",
+            "modelActor": {
+                "resource": {
+                    "type": "ParticleAnimation",
+                    "name": "vfx_generic_region_aura_ice"
+                },
+                "events": [
+                    {
+                        "actorTerm": {
+                            "persistentEffectOn": {
+                                "effect": "RandomSpike Delay"
+                            }
+                        },
+                        "actions": [
+                            {
+                                "create": {}
+                            }
+                        ]
+                    },
+                    {
+                        "actorTerm": {
+                            "persistentEffectOff": {}
+                        },
+                        "actions": [
+                            {
+                                "create": {
+                                    "actor": "RandomSpike Impact VFX"
+                                }
+                            },
+                            {
+                                "destroy": {}
+                            }
+                        ]
+                    }
+                ],
+                "modelScale": 1
+            }
+        },
+        "_CBuilding": {
+            "unitActor": {
+                "resource": {
+                    "type": "GpuAnimation"
+                }
+            }
+        },
+        "_CMissile": {
+            "unitActor": {
+                "resource": {
+                    "type": "GpuAnimation"
+                }
+            }
+        },
+        "_CUnit": {
+            "unitActor": {
+                "resource": {
+                    "type": "GpuAnimation"
+                }
+            }
+        },
+        "_StandardHelper": {
+            "unitActor": {
+                "resource": {
+                    "type": "GpuAnimation"
+                }
+            }
+        }
+    }
+}

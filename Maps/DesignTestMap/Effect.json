@@ -1,0 +1,108 @@
+{
+    "effects": {
+        "BoulderBomb Damage": {
+            "prefix": "ZA",
+            "damage": {
+                "damageAmount": 3
+            }
+        },
+        "BoulderBomb Delay": {
+            "prefix": "ZA",
+            "persistent": {
+                "periodicCount": 1,
+                "finalEffect": "BoulderBomb Explosion FX",
+                "periodicDurations": [
+                    2
+                ],
+                "periodicEffects": [
+                    "BoulderBomb Search"
+                ]
+            }
+        },
+        "BoulderBomb Explosion FX": {
+            "prefix": "ZA",
+            "spawn": {
+                "unit": "BoulderBomb Explosion VFX",
+                "count": 1,
+                "location": 2
+            }
+        },
+        "BoulderBomb Launch": {
+            "prefix": "ZA",
+            "launchMissile": {
+                "targetType": 2,
+                "missileUnit": "BoulderBomb Projectile",
+                "effect": "BoulderBomb Delay",
+                "impactLocation": 2,
+                "mover": "BoulderBomb Projectile"
+            }
+        },
+        "BoulderBomb Search": {
+            "prefix": "ZA",
+            "areaSearch": {
+                "debugDraw": true,
+                "areaSearchType": {
+                    "circle": {
+                        "radius": 1.8
+                    }
+                },
+                "filter": {
+                    "player": 2,
+                    "ally": 2
+                },
+                "effect": "BoulderBomb Damage",
+                "location": 2
+            }
+        },
+        "Hero EarthBender Weapon Damage": {
+            "prefix": "ZA",
+            "damage": {
+                "damageAmount": 2
+            }
+        },
+        "Hero EarthBender Weapon Launch": {
+            "prefix": "ZA",
+            "launchMissile": {
+                "missileUnit": "Hero RandomMage Weapon Missile",
+                "effect": "Hero RandomMage Weapon Damage",
+                "mover": "Hero RandomMage Weapon Missile"
+            }
+        },
+        "Hero RandomMage Weapon Damage": {
+            "damage": {
+                "damageAmount": 5
+            }
+        },
+        "Hero RandomMage Weapon Launch": {
+            "launchMissile": {
+                "missileUnit": "Hero RandomMage Weapon Missile",
+                "effect": "Hero RandomMage Weapon Damage",
+                "mover": "Hero RandomMage Weapon Missile"
+            }
+        },
+        "RandomSpike Damage": {
+            "damage": {
+                "damageAmount": 2
+            }
+        },
+        "RandomSpike Delay": {
+            "persistent": {
+                "periodicCount": 1,
+                "finalEffect": "RandomSpike Search",
+                "periodicDurations": [
+                    1.5
+                ]
+            }
+        },
+        "RandomSpike Search": {
+            "areaSearch": {
+                "areaSearchType": {
+                    "circle": {
+                        "radius": 3
+                    }
+                },
+                "effect": "RandomSpike Damage"
+            }
+        }
+    }
+}

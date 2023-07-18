@@ -1,0 +1,16 @@
+{
+    "weapons": {
+        "Hero EarthBender Weapon": {
+            "prefix": "ZA",
+            "parent": "_StandardMeleeWeapon",
+            "effectName": "Hero EarthBender Weapon Damage",
+            "stats": {
+                "period": 1.2
+            }
+        },
+        "Hero RandomMage Weapon": {
+            "parent": "_StandardRangedWeapon",
+            "effectName": "Hero RandomMage Weapon Launch"
+        }
+    }
+}

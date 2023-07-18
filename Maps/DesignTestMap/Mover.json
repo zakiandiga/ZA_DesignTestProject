@@ -1,0 +1,16 @@
+{
+    "movers": {
+        "BoulderBomb Projectile": {
+            "ballistic": {
+                "flightTime": 0.5,
+                "gravity": 12
+            }
+        },
+        "Hero RandomMage Weapon Missile": {
+            "ballistic": {
+                "flightTime": 0.5,
+                "gravity": 12
+            }
+        }
+    }
+}

@@ -1,0 +1,15 @@
+{
+    "settings": {
+        "type": 0,
+        "registryDependencies": [
+            {
+                "identifier": "Core",
+                "version": "^1.0.0"
+            },
+            {
+                "identifier": "GMUI",
+                "version": "^1.0.0"
+            }
+        ]
+    }
+}

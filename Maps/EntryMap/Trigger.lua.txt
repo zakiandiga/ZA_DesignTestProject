@@ -1,0 +1,14 @@
+
+-- LIBRARIES
+local Core = require("Core")
+local GMUI = require("GMUI")
+
+-- VARIABLES
+
+-- TRIGGERS
+function OnMapStart()
+    Core.HideDefaultUi()
+end
+
+-- INITIALIZE
+DCEI.TriggerAddTimerEventElapsed(OnMapStart, 0)

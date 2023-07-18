@@ -1,0 +1,21 @@
+{
+    "abilities": {
+        "BoulderBomb": {
+            "prefix": "ZA",
+            "effect": "BoulderBomb Launch",
+            "stats": {
+                "range": 99
+            },
+            "targetFilter": {
+                "player": 2,
+                "ally": 2
+            }
+        },
+        "RandomSpike": {
+            "effect": "RandomSpike Delay",
+            "stats": {
+                "range": 99
+            }
+        }
+    }
+}
