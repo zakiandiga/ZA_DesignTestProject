@@ -1,79 +1,82 @@
+-- Module Imports
+local core = require("core")
+local ui = require("UI")
+local enemy = require("Enemy")
+local HeroBase = require("HeroBase")
+local EarthBender = require("HeroEarthBender")
+local IceMage = require("HeroIceMage")
+local Utilities = require("Utilities")
 
--- LIBRARIES
-local Core = require("Core")
-local PlayerHero = require("PlayerHero")
-local GMUI = require("GMUI")
+-- CONSTANTS
+local hero_spawn_points = {
+    { x = 13, y = 13 },
+    { x = 18, y = 18 }
+}
 
 -- VARIABLES
 local score = 0
+local selected_unit
+local current_hero
+local secondary_hero
+local ancient_tree = DCEI.FindUnit("Ancient Tree")
 
-local hero_unit = DCEI.Unit("Hero EarthBender")
-local enemy_unit_melee = DCEI.Unit("Standard MeleeUnit")
-local enemy_spawnpoints = {
-    {20, 20},
-    {18, 18},
-    {16, 16}
-}
+local level_ongoing = true
 
 
 -- TRIGGERS
-function OnMapStart()
-    DCEI.CreateUnit(1, 1, hero_unit, 15, 15)
-
-    for key, value in ipairs(enemy_spawnpoints) do
-        SpawnEnemy(value)
-    end    
-end
-
-
-function SpawnEnemy(spawn_point)
-    DCEI.CreateUnit(-1, -1, enemy_unit_melee, spawn_point[1], spawn_point[2])
-end
-
 function OnUnitDied()
-    local unit = DCEI.TriggeringUnit
-    local name = DCEI.GetUnitType(unit)
-    local last_position = DCEI.GetUnitPosition2D(unit)
-    local point = {last_position.x, last_position.y}
+    local died_unit = DCEI.TriggeringUnit
+
+    if DCEI.GetUnitPlayerId(died_unit) == -1 then --enemy dies
+        enemy:OnEnemyDies(died_unit)
+        score = score + enemy:GetEnemyScoreValue(died_unit)
+        ui:UpdateScore(score) 
+    elseif died_unit == current_hero.hero_unit or died_unit == ancient_tree then --hero dies
+        level_ongoing = false
+        GameOver()        
+    end
+end
+
+function GameOver()
+    ui:HandleGameOver()
+end
+
+function SpawnEnemies()
+    if not enemy:ReachSpawnLimit() then
+        enemy:SpawnEnemy() 
+    end   
+end
+
+function SpawningTimer()
+    SpawnEnemies()    
+    local duration = core.Random(3, 5)
+    if not level_ongoing then 
+        return 
+    end
     
-    --declare and use local function instead of wrap directly for readability
-    --IMPORTANT: might want to revert back to wrap directly to follow the conventions
-    local function RespawnEnemy()
-        SpawnEnemy(point)
-    end
-
-    if name == enemy_unit_melee then
-        DCEI.LogMessage("Enemy died!!")
-        score = score + 1
-        UpdateScore()
-
-        DCEI.TriggerAddTimerEventElapsed(RespawnEnemy, 2) 
-    end    
+    DCEI.TriggerAddTimerEventElapsed(SpawningTimer, duration, false, true)
 end
 
-function UpdateScore()
-    DCEI.ShowObjectiveText("Score: " .. score)
+function OnLevelUpButtonPressed()
+    enemy:InitiateGlobalLevelUp()
 end
-
-function OnAbilityKeyDown()
-    local hero = DCEI.FindUnit("Hero EarthBender")
-    local mouse_position = DCEI.GetMouseWorldPosition2D()
-
-    DCEI.CastAbilityAtPosition("BoulderBomb", hero, mouse_position.x, mouse_position.y)
-end
-
-
---[[ for loop
-    for i = 1, 3, 1 do
-        local spawn_point = enemy_spawnpoints [i]
-        DCEI.CreateUnit(1, 1, enemy_unit_melee, spawn_point, spawn_point[2])
-    end
-]]--
-
 
 -- INITIALIZE
---DCEI.TriggerAddTimerEventElapsed(OnMapStart, 0)
-OnMapStart()
+function OnMapStart()
+    core.HideDefaultUi()     
+    
+    InitializeLevel()
+    ui:InitializeUi(current_hero, secondary_hero)
+end
 
+function InitializeLevel()
+    current_hero = EarthBender:New(hero_spawn_points[1])    
+    local ancient_tree = DCEI.FindUnit("Ancient Tree")
+    core.SetGameSpeed(0)
+    SpawningTimer()
+    level_ongoing = true
+end
+
+DCEI.TriggerAddTimerEventElapsed(OnMapStart, 0)
 DCEI.TriggerAddUnitDiedEvent(DCEI.UnitAny, OnUnitDied)
-DCEI.TriggerAddMappedKeyDownEvent("Ability01", OnAbilityKeyDown)
+DCEI.TriggerAddMappedKeyDownEvent("LevelUpDebug", OnLevelUpButtonPressed)

@@ -1,31 +1,45 @@
 {
     "effects": {
+        "Apply LevelUp": {
+            "prefix": "ZA",
+            "applyBehavior": {
+                "behavior": "Enemy LevelUp",
+                "target": 3
+            }
+        },
         "BoulderBomb Damage": {
             "prefix": "ZA",
             "damage": {
-                "damageAmount": 3
+                "damageAmount": 8
             }
         },
         "BoulderBomb Delay": {
             "prefix": "ZA",
             "persistent": {
-                "periodicCount": 1,
-                "finalEffect": "BoulderBomb Explosion FX",
+                "periodicCount": 2,
+                "startEffect": "BoulderBomb Impact FX",
+                "finalEffect": "BoulderBomb Search",
                 "periodicDurations": [
+                    0,
                     2
                 ],
                 "periodicEffects": [
-                    "BoulderBomb Search"
+                    "BoulderBomb Delay FX",
+                    "BoulderBomb Explosion FX"
                 ]
             }
         },
+        "BoulderBomb Delay FX": {
+            "prefix": "ZA",
+            "persistent": {}
+        },
         "BoulderBomb Explosion FX": {
             "prefix": "ZA",
-            "spawn": {
-                "unit": "BoulderBomb Explosion VFX",
-                "count": 1,
-                "location": 2
-            }
+            "persistent": {}
+        },
+        "BoulderBomb Impact FX": {
+            "prefix": "ZA",
+            "persistent": {}
         },
         "BoulderBomb Launch": {
             "prefix": "ZA",
@@ -40,7 +54,7 @@
         "BoulderBomb Search": {
             "prefix": "ZA",
             "areaSearch": {
-                "debugDraw": true,
+                "debugDraw": false,
                 "areaSearchType": {
                     "circle": {
                         "radius": 1.8
@@ -54,30 +68,93 @@
                 "location": 2
             }
         },
-        "Hero EarthBender Weapon Damage": {
+        "Command Move": {
+            "prefix": "ZA",
+            "issueCommand": {
+                "type": 2,
+                "whichUnit": 2,
+                "targetUnit": 1,
+                "targetLocation": 2,
+                "targetOffset": {
+                    "explicitOffset": {}
+                }
+            },
+            "debugLogContext": true
+        },
+        "Enemy LevelUp FX": {
+            "prefix": "ZA",
+            "persistent": {
+                "finalEffect": "Apply LevelUp"
+            }
+        },
+        "Goblin Dies": {
+            "persistent": {}
+        },
+        "Goblin MeleeWeapon Damage": {
             "prefix": "ZA",
             "damage": {
-                "damageAmount": 2
+                "damageAmount": 4
             }
         },
-        "Hero EarthBender Weapon Launch": {
+        "Goblin MeleeWeapon FX": {
             "prefix": "ZA",
-            "launchMissile": {
-                "missileUnit": "Hero RandomMage Weapon Missile",
-                "effect": "Hero RandomMage Weapon Damage",
-                "mover": "Hero RandomMage Weapon Missile"
+            "persistent": {
+                "finalEffect": "Goblin MeleeWeapon Damage"
             }
         },
-        "Hero RandomMage Weapon Damage": {
+        "Hero EarthBender Weapon Damage": {
+            "prefix": "ZA",
             "damage": {
                 "damageAmount": 5
             }
         },
+        "Hero EarthBender Weapon Impact FX": {
+            "prefix": "ZA",
+            "persistent": {
+                "finalEffect": "Hero EarthBender Weapon Damage"
+            }
+        },
+        "Hero IceMage Weapon Damage": {
+            "prefix": "ZA",
+            "damage": {
+                "damageAmount": 5
+            }
+        },
+        "Hero IceMage Weapon Launch": {
+            "prefix": "ZA",
+            "launchMissile": {
+                "missileUnit": "Hero IceMage Weapon Missile",
+                "effect": "Hero IceMage Weapon Damage",
+                "mover": "Hero IceMage Weapon Missile"
+            }
+        },
         "Hero RandomMage Weapon Launch": {
             "launchMissile": {
-                "missileUnit": "Hero RandomMage Weapon Missile",
-                "effect": "Hero RandomMage Weapon Damage",
-                "mover": "Hero RandomMage Weapon Missile"
+                "missileUnit": "Hero IceMage Weapon Missile",
+                "mover": "Hero IceMage Weapon Missile"
+            }
+        },
+        "HobGoblin Damage": {
+            "prefix": "ZA",
+            "damage": {
+                "damageAmount": 12
+            }
+        },
+        "HobGoblin Dies FX": {
+            "prefix": "ZA",
+            "persistent": {}
+        },
+        "HobGoblin Weapon FX": {
+            "prefix": "ZA",
+            "persistent": {
+                "finalEffect": "HobGoblin Damage"
+            }
+        },
+        "Minion Damage": {
+            "prefix": "ZA",
+            "parent": "Standard Damage",
+            "damage": {
+                "damageAmount": 10
             }
         },
         "RandomSpike Damage": {
@@ -103,6 +180,60 @@
                 },
                 "effect": "RandomSpike Damage"
             }
+        },
+        "SelfDestruct": {
+            "prefix": "ZA",
+            "kill": {
+                "whichUnit": 2
+            }
+        },
+        "SummonGolem FX": {
+            "prefix": "ZA",
+            "persistent": {}
+        },
+        "SummonGolem Spawn": {
+            "prefix": "ZA",
+            "spawn": {
+                "unit": "SummonedGolem",
+                "offset": {
+                    "explicitOffset": {
+                        "forward": 1,
+                        "right": 1
+                    }
+                }
+            }
+        },
+        "SummonedGolem MeleeDamage": {
+            "prefix": "ZA",
+            "damage": {
+                "damageAmount": 10
+            }
+        },
+        "SummonedGolem MeleeImpact FX": {
+            "prefix": "ZA",
+            "persistent": {
+                "finalEffect": "SummonedGolem MeleeDamage"
+            }
+        },
+        "Template Persistent FX": {
+            "prefix": "ZA",
+            "template": true,
+            "persistent": {}
+        },
+        "Template Set FX": {
+            "prefix": "ZA",
+            "template": true,
+            "set": {
+                "targetType": 3,
+                "effectList": [
+                    "",
+                    ""
+                ]
+            }
+        },
+        "Test Persistent": {
+            "prefix": "ZA",
+            "persistent": {}
         }
     }
 }

@@ -1,0 +1,138 @@
+-- Enemy spawning functionalities, pairs and ipairs demonstration
+-- MODULES
+local core = require("core")
+local Utilities = require("Utilities")
+
+-- SCRIPTS
+local enemy = {}
+
+-- CONSTANTS
+local levelup_behavior = DCEI.Behavior("Enemy LevelUp")
+local spawn_offset = 0.2
+
+enemy.enemy_team = -1
+
+enemy.enemy_units = {
+    {name = DCEI.Unit("Goblin MeleeUnit"), value = 10},
+    {name = DCEI.Unit("Hobgoblin MeleeUnit"), value = 30}
+}
+
+enemy.objective = DCEI.FindUnit("Ancient Tree")
+
+-- VARIABLES
+enemy.enemy_limit = 10
+enemy.enemy_level = 1
+enemy.spawned_enemies = {}
+enemy.spawn_positions = {
+    {x = 5, y = 5},
+    {x = 5, y = 25},
+    {x = 25, y = 5},
+    {x = 25, y = 25}
+}
+
+-- FUNCTIONS
+function enemy:SpawnEnemy()     
+    
+    local spawned_unit = DCEI.CreateUnit(self.enemy_team, -1, self:GetEnemyToSpawn(), self:GetSpawnPosition().x, self:GetSpawnPosition().y)
+    self:AddEnemyToTable(spawned_unit)
+
+    DCEI.MoveAttack(spawned_unit, 15, 15)
+    
+    if self.enemy_level > 1 then
+        self:BypassLevelUpEnemy(spawned_unit, self.enemy_level - 1)
+    end
+end
+
+function enemy:AddEnemyToTable(spawned_unit)
+    table.insert(self.spawned_enemies, spawned_unit)
+end
+
+function enemy:RemoveEnemyFromTable(died_unit)
+    for i, unit in ipairs(self.spawned_enemies) do
+        if unit == died_unit then
+            table.remove(self.spawned_enemies, i)
+            return
+        end
+    end
+end
+
+function enemy:InitiateGlobalLevelUp()
+    self.enemy_level = self.enemy_level + 1
+
+    for _, unit in pairs(self.spawned_enemies) do
+        DCEI.CastAbilityAtUnit(DCEI.Ability("Enemy LevelUp"), unit, unit)
+    end
+end
+
+function enemy:BypassLevelUpEnemy(unit, amount)
+    DCEI.ApplyBehaviorToUnit(unit, unit, unit,levelup_behavior, amount)
+end
+
+function enemy:OnEnemyDies(died_unit)
+    self:RemoveEnemyFromTable(died_unit)
+end
+
+--call this to make an alternate spawn_position without changin the self.spawn_position
+function enemy:CreateNewSpawnPosition()
+    local new_spawn_position = DeepCopy(self.spawn_positions)
+    local swift_offset = 5
+    for _, position in pairs(new_spawn_position) do
+        position[1].x = position[1].x + core.Random(-1 * swift_offset, swift_offset)
+        position[1].y = position[1].y + core.Random(-1 * swift_offset, swift_offset)
+    end
+end
+
+-- GETTER/SETTER
+function enemy:ReachSpawnLimit() 
+    return self:GetEnemyCount() >= self.enemy_limit    
+end
+
+function enemy:GetEnemyCount()
+    local enemy_count = 0
+    for _, value in pairs(self.spawned_enemies) do     
+        enemy_count = enemy_count + 1
+    end
+
+    return enemy_count
+end
+
+function enemy:SetEnemyLimit(value)
+    self.enemy_limit = value
+end
+
+function enemy:GetEnemyToSpawn()
+    local rare_chance = 20
+    local d100 = math.random(1, 100)
+    if d100 > rare_chance then
+        return self.enemy_units[1].name
+    else
+        return self.enemy_units[2].name
+    end
+end
+
+function enemy:GetEnemyScoreValue(died_unit)
+    local unit_type = DCEI.GetUnitType(died_unit)
+
+    for i, enemy_unit in pairs(self.enemy_units) do
+        if unit_type == enemy_unit.name then
+            return enemy_unit.value
+        end
+    end
+    return 0
+end
+
+function enemy:GetSpawnPosition()
+    local random_index = math.random(1, 4)
+    local spawn_pos = self.spawn_positions[random_index]
+
+    spawn_pos.x = spawn_pos.x + core.Random(-1 * spawn_offset, spawn_offset)
+    spawn_pos.y = spawn_pos.y + core.Random(-1 * spawn_offset, spawn_offset)  
+    
+    return spawn_pos
+end
+
+function enemy:InitializeEnemy()
+
+end
+
+return enemy

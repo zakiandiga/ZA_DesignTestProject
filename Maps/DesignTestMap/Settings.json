@@ -3,11 +3,11 @@
         "type": 0,
         "registryDependencies": [
             {
-                "identifier": "Core",
+                "identifier": "core",
                 "version": "^1.0.0"
             },
             {
-                "identifier": "GMUI",
+                "identifier": "gmui",
                 "version": "^1.0.0"
             }
         ]

@@ -1,19 +1,67 @@
 {
     "actors": {
-        "BoulderBomb Action": {
+        "Ancient Tree": {
             "prefix": "ZA",
-            "parent": "_FX Attack SingleTarget",
+            "parent": "_StandardUnit DecayOnDeath",
+            "unitActor": {
+                "resource": {
+                    "type": "GpuAnimation",
+                    "name": "fantasy_tower_sproutingoak_rank2"
+                }
+            }
+        },
+        "BoulderBomb Delay FX": {
+            "prefix": "ZA",
             "actionActor": {
-                "effect": "BoulderBomb Launch",
-                "launchModel": "Hero EarthBender Weapon Launch SFX",
-                "launchModelDetached": true,
+                "effect": "BoulderBomb Delay FX",
                 "impactModel": "BoulderBomb Delay VFX",
-                "impactModelDetached": true
+                "additionalModels": [
+                    {
+                        "impactModel": "BoulderBomb Delay SFX"
+                    }
+                ]
+            }
+        },
+        "BoulderBomb Delay SFX": {
+            "prefix": "ZA",
+            "parent": "Template ModelActor SFX",
+            "modelActor": {
+                "resource": {
+                    "type": "Sound",
+                    "name": "sfx_earthquake"
+                },
+                "events": [
+                    {
+                        "actorTerm": {
+                            "actorCreate": {}
+                        },
+                        "actions": [
+                            {
+                                "createTimer": {
+                                    "name": "Delay",
+                                    "duration": 2
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "actorTerm": {
+                            "onTimer": {
+                                "name": "Delay"
+                            }
+                        },
+                        "actions": [
+                            {
+                                "destroy": {}
+                            }
+                        ]
+                    }
+                ]
             }
         },
         "BoulderBomb Delay VFX": {
             "prefix": "ZA",
-            "parent": "_FX OneShot SelfRemoving",
+            "parent": "Template ModelActor VFX",
             "modelActor": {
                 "resource": {
                     "type": "ParticleAnimation",
@@ -30,7 +78,7 @@
                             },
                             {
                                 "createTimer": {
-                                    "name": "FailsafeRemove",
+                                    "name": "Delay",
                                     "duration": 2
                                 }
                             }
@@ -38,18 +86,8 @@
                     },
                     {
                         "actorTerm": {
-                            "animationFinish": {}
-                        },
-                        "actions": [
-                            {
-                                "destroy": {}
-                            }
-                        ]
-                    },
-                    {
-                        "actorTerm": {
                             "onTimer": {
-                                "name": "FailsafeRemove"
+                                "name": "Delay"
                             }
                         },
                         "actions": [
@@ -58,90 +96,87 @@
                             }
                         ]
                     }
-                ],
-                "selectionScale": {
-                    "x": 1,
-                    "y": 1,
-                    "z": 1
-                },
-                "scaleMultiplier": {
-                    "x": 1,
-                    "y": 1,
-                    "z": 1
+                ]
+            }
+        },
+        "BoulderBomb Explosion FX": {
+            "prefix": "ZA",
+            "actionActor": {
+                "effect": "BoulderBomb Explosion FX",
+                "impactModel": "BoulderBomb Explosion VFX",
+                "additionalModels": [
+                    {
+                        "impactModel": "BoulderBomb Explosion SFX"
+                    }
+                ]
+            }
+        },
+        "BoulderBomb Explosion SFX": {
+            "prefix": "ZA",
+            "parent": "Template ModelActor SFX",
+            "modelActor": {
+                "resource": {
+                    "type": "Sound",
+                    "name": "explosion"
                 }
             }
         },
         "BoulderBomb Explosion VFX": {
             "prefix": "ZA",
-            "unitActor": {
+            "parent": "Template ModelActor VFX",
+            "modelActor": {
                 "resource": {
                     "type": "ParticleAnimation",
                     "name": "vfx_shared_explosion_small"
-                },
-                "selectionScale": {
-                    "x": 1,
-                    "y": 1,
-                    "z": 1
+                }
+            }
+        },
+        "BoulderBomb Impact FX": {
+            "prefix": "ZA",
+            "actionActor": {
+                "effect": "BoulderBomb Impact FX",
+                "impactModel": "BoulderBomb Impact VFX",
+                "additionalModels": [
+                    {
+                        "impactModel": "BoulderBomb Impact SFX"
+                    }
+                ]
+            }
+        },
+        "BoulderBomb Impact SFX": {
+            "prefix": "ZA",
+            "parent": "Template ModelActor SFX",
+            "modelActor": {
+                "resource": {
+                    "type": "Sound",
+                    "name": "flamethrower_rocketfist_impact"
                 }
             }
         },
         "BoulderBomb Impact VFX": {
             "prefix": "ZA",
-            "parent": "_FX OneShot SelfRemoving",
+            "parent": "Template ModelActor VFX",
             "modelActor": {
                 "resource": {
                     "type": "ParticleAnimation",
-                    "name": "vfx_spell_consecrate_aoe"
-                },
-                "events": [
-                    {
-                        "actorTerm": {
-                            "actorCreate": {}
-                        },
-                        "actions": [
-                            {
-                                "playAnimation": {}
-                            },
-                            {
-                                "createTimer": {
-                                    "name": "FailsafeRemove",
-                                    "duration": 2
-                                }
-                            }
-                        ]
-                    },
-                    {
-                        "actorTerm": {
-                            "animationFinish": {}
-                        },
-                        "actions": [
-                            {
-                                "destroy": {}
-                            }
-                        ]
-                    },
-                    {
-                        "actorTerm": {
-                            "onTimer": {
-                                "name": "FailsafeRemove"
-                            }
-                        },
-                        "actions": [
-                            {
-                                "destroy": {}
-                            }
-                        ]
-                    }
-                ],
-                "selectionScale": {
-                    "x": 1,
-                    "y": 1,
-                    "z": 1
-                },
-                "scaleMultiplier": {
-                    "x": 1,
-                    "y": 1,
-                    "z": 1
+                    "name": "vfx_dwarfsmith_hammercrash_impact_aoe_slim"
+                }
+            }
+        },
+        "BoulderBomb Launch": {
+            "prefix": "ZA",
+            "actionActor": {
+                "effect": "BoulderBomb Launch",
+                "launchModel": "BoulderBomb Launch SFX"
+            }
+        },
+        "BoulderBomb Launch SFX": {
+            "prefix": "ZA",
+            "parent": "Template ModelActor SFX",
+            "modelActor": {
+                "resource": {
+                    "type": "Sound",
+                    "name": "fireball_launch"
                 }
             }
         },
@@ -159,6 +194,381 @@
                 }
             }
         },
+        "Cursor Invalid FX": {
+            "prefix": "ZA",
+            "modelActor": {
+                "resource": {
+                    "type": "ParticleAnimation",
+                    "name": "vfx_indicator_white"
+                },
+                "events": [
+                    {
+                        "actorTerm": {
+                            "actorOrphan": {}
+                        },
+                        "actions": [
+                            {
+                                "destroy": {}
+                            }
+                        ]
+                    },
+                    {
+                        "actorTerm": {
+                            "actorCreate": {}
+                        },
+                        "actions": [
+                            {
+                                "setTintColor": {
+                                    "color": {
+                                        "r": 255,
+                                        "g": 22,
+                                        "b": 22
+                                    }
+                                }
+                            }
+                        ]
+                    }
+                ],
+                "hostSiteOperations": [
+                    "SOp UpBy Dot1"
+                ],
+                "modelScale": 1,
+                "selectionScale": {
+                    "x": 1,
+                    "y": 1,
+                    "z": 1
+                },
+                "scaleMultiplier": {
+                    "x": 1.2,
+                    "y": 1.2,
+                    "z": 1.2
+                }
+            }
+        },
+        "Cursor Valid FX": {
+            "prefix": "ZA",
+            "modelActor": {
+                "resource": {
+                    "type": "ParticleAnimation",
+                    "name": "vfx_indicator"
+                },
+                "events": [
+                    {
+                        "actorTerm": {
+                            "actorOrphan": {}
+                        },
+                        "actions": [
+                            {
+                                "destroy": {}
+                            }
+                        ]
+                    }
+                ],
+                "hostSiteOperations": [
+                    "SOp UpBy Dot1"
+                ],
+                "modelScale": 1,
+                "selectionScale": {
+                    "x": 1,
+                    "y": 1,
+                    "z": 1
+                },
+                "scaleMultiplier": {
+                    "x": 1.2,
+                    "y": 1.2,
+                    "z": 1.2
+                }
+            }
+        },
+        "Enemy LevelUp FX": {
+            "prefix": "ZA",
+            "actionActor": {
+                "effect": "Enemy LevelUp FX",
+                "impactModel": "Enemy LevelUp VFX",
+                "additionalModels": [
+                    {
+                        "impactModel": "Enemy LevelUp SFX"
+                    }
+                ]
+            }
+        },
+        "Enemy LevelUp SFX": {
+            "prefix": "ZA",
+            "parent": "_SFX OneShot SelfRemoving",
+            "modelActor": {
+                "resource": {
+                    "type": "Sound",
+                    "name": "card_level_up"
+                },
+                "events": [
+                    {
+                        "actorTerm": {
+                            "actorCreate": {}
+                        },
+                        "actions": [
+                            {
+                                "createTimer": {
+                                    "name": "Delay",
+                                    "duration": 2
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "actorTerm": {
+                            "onTimer": {
+                                "name": "Delay"
+                            }
+                        },
+                        "actions": [
+                            {
+                                "destroy": {}
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        "Enemy LevelUp VFX": {
+            "prefix": "ZA",
+            "parent": "_FX OneShot SelfRemoving",
+            "modelActor": {
+                "resource": {
+                    "type": "ParticleAnimation",
+                    "name": "vfx_siegetank__fortifiedposition_aura"
+                },
+                "events": [
+                    {
+                        "actorTerm": {
+                            "actorCreate": {}
+                        },
+                        "actions": [
+                            {
+                                "createTimer": {
+                                    "name": "Duration",
+                                    "duration": 0.7
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "actorTerm": {
+                            "onTimer": {
+                                "name": "Duration"
+                            }
+                        },
+                        "actions": [
+                            {
+                                "destroy": {}
+                            }
+                        ]
+                    }
+                ],
+                "selectionScale": {
+                    "x": 0.7,
+                    "y": 0.7,
+                    "z": 0.7
+                }
+            }
+        },
+        "EnemySpawner": {
+            "prefix": "ZA",
+            "unitActor": {
+                "resource": {
+                    "type": "PropModel",
+                    "name": "teleport_platform"
+                }
+            }
+        },
+        "Explosion Actor": {
+            "prefix": "ZA",
+            "actionActor": {
+                "launchModel": "Explosion Base FX",
+                "additionalModels": [
+                    {
+                        "launchModel": "BoulderBomb Explosion SFX"
+                    }
+                ]
+            }
+        },
+        "Explosion Base FX": {
+            "prefix": "ZA",
+            "parent": "_FX OneShot SelfRemoving",
+            "modelActor": {
+                "resource": {
+                    "type": "ParticleAnimation",
+                    "name": "vfx_shared_explosion_small"
+                }
+            }
+        },
+        "Explosion Base SFX": {
+            "prefix": "ZA",
+            "parent": "_SFX OneShot SelfRemoving",
+            "modelActor": {
+                "resource": {
+                    "type": "Sound",
+                    "name": "explosion"
+                }
+            }
+        },
+        "Goblin Dies": {
+            "prefix": "ZA",
+            "actionActor": {
+                "effect": "Goblin Dies",
+                "launchModel": "Goblin Dies SFX"
+            }
+        },
+        "Goblin Dies SFX": {
+            "prefix": "ZA",
+            "parent": "_SFX OneShot SelfRemoving",
+            "modelActor": {
+                "resource": {
+                    "type": "Sound",
+                    "name": "goblin_assasin_die"
+                },
+                "events": [
+                    {
+                        "actorTerm": {
+                            "actorCreate": {}
+                        },
+                        "actions": [
+                            {
+                                "playAnimation": {}
+                            }
+                        ]
+                    },
+                    {
+                        "actorTerm": {
+                            "animationFinish": {}
+                        },
+                        "actions": [
+                            {
+                                "destroy": {}
+                            }
+                        ]
+                    }
+                ],
+                "selectionScale": {
+                    "x": 1,
+                    "y": 1,
+                    "z": 1
+                },
+                "scaleMultiplier": {
+                    "x": 1,
+                    "y": 1,
+                    "z": 1
+                }
+            }
+        },
+        "Goblin MeleeUnit": {
+            "prefix": "ZA",
+            "parent": "Minion MeleeUnit",
+            "unitActor": {
+                "resource": {
+                    "type": "GpuAnimation",
+                    "name": "goblin_green"
+                },
+                "selectionScale": {
+                    "x": 1
+                },
+                "scaleMultiplier": {
+                    "x": 1.8,
+                    "y": 1.8,
+                    "z": 1.8
+                }
+            }
+        },
+        "Goblin MeleeWeapon Damage FX": {
+            "prefix": "ZA",
+            "parent": "_FX Attack SingleTarget",
+            "actionActor": {
+                "effect": "Goblin MeleeWeapon FX",
+                "launchModel": "Goblin MeleeWeapon VFX",
+                "additionalModels": [
+                    {
+                        "launchModel": "Goblin MeleeWeapon Damage SFX"
+                    }
+                ]
+            }
+        },
+        "Goblin MeleeWeapon Damage SFX": {
+            "prefix": "ZA",
+            "parent": "_SFX OneShot SelfRemoving",
+            "modelActor": {
+                "resource": {
+                    "type": "Sound",
+                    "name": "goblinchef_weapon_impact"
+                }
+            }
+        },
+        "Goblin MeleeWeapon VFX": {
+            "prefix": "ZA",
+            "parent": "_FX OneShot SelfRemoving",
+            "modelActor": {
+                "resource": {
+                    "type": "ParticleAnimation",
+                    "name": "vfx_dwarfsmith_weapon_impact"
+                },
+                "events": [
+                    {
+                        "actorTerm": {
+                            "actorCreate": {}
+                        },
+                        "actions": [
+                            {
+                                "playAnimation": {}
+                            },
+                            {
+                                "createTimer": {
+                                    "name": "FailsafeRemove",
+                                    "duration": 5
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "actorTerm": {
+                            "animationFinish": {}
+                        },
+                        "actions": [
+                            {
+                                "destroy": {}
+                            }
+                        ]
+                    },
+                    {
+                        "actorTerm": {
+                            "onTimer": {
+                                "name": "FailsafeRemove"
+                            }
+                        },
+                        "actions": [
+                            {
+                                "destroy": {}
+                            }
+                        ]
+                    }
+                ],
+                "selectionScale": {
+                    "x": 1,
+                    "y": 1,
+                    "z": 1
+                },
+                "scaleMultiplier": {
+                    "x": 1,
+                    "y": 1,
+                    "z": 1
+                }
+            }
+        },
+        "GoblinArcher RangeUnit": {
+            "prefix": "ZA",
+            "unitActor": {
+                "resource": {
+                    "type": "GpuAnimation"
+                }
+            }
+        },
         "Hero EarthBender": {
             "prefix": "ZA",
             "parent": "_StandardUnit DecayOnDeath",
@@ -168,50 +578,82 @@
                     "name": "dwarfsmith_infernal",
                     "priority": 3
                 },
+                "events": [
+                    {
+                        "actorTerm": {
+                            "selectionOn": {}
+                        },
+                        "actions": [
+                            {
+                                "create": {
+                                    "actor": "HeroSelected VFX"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "actorTerm": {
+                            "selectionOff": {}
+                        },
+                        "actions": [
+                            {
+                                "destroy": {
+                                    "actor": "HeroSelected VFX"
+                                }
+                            }
+                        ]
+                    }
+                ],
                 "eventMacros": [
                     "Events StandardUnit Selectable"
                 ],
                 "hostSites": {
                     "SiteWeapon": {
                         "offset": {
-                            "forward": 0.5,
+                            "forward": 0.2,
                             "right": 0.5
                         }
                     }
                 },
-                "walkAnimationSpeed": 1.75
-            }
-        },
-        "Hero EarthBender Weapon Attack FX": {
-            "prefix": "ZA",
-            "parent": "_FX Attack SingleTarget",
-            "actionActor": {
-                "effect": "Hero RandomMage Weapon Launch",
-                "launchModel": "Hero RandomMage Weapon Launch SFX"
+                "walkAnimationSpeed": 1.75,
+                "selectionBonusRadius": 0.5
             }
         },
         "Hero EarthBender Weapon Impact FX": {
             "prefix": "ZA",
-            "parent": "_FX OneShot SelfRemoving",
-            "modelActor": {
-                "resource": {
-                    "type": "ParticleAnimation",
-                    "name": ""
-                }
+            "parent": "_FX Attack SingleTarget",
+            "actionActor": {
+                "effect": "Hero EarthBender Weapon Impact FX",
+                "launchModel": "Hero EarthBender Weapon Impact VFX",
+                "additionalModels": [
+                    {
+                        "launchModel": "Hero EarthBender Weapon Impact SFX"
+                    }
+                ]
             }
         },
-        "Hero EarthBender Weapon Launch SFX": {
+        "Hero EarthBender Weapon Impact SFX": {
             "prefix": "ZA",
             "parent": "_SFX OneShot SelfRemoving",
             "modelActor": {
                 "resource": {
                     "type": "Sound",
-                    "name": "ice_mage_missile_launch"
+                    "name": "crusader_attack_impact"
                 }
             }
         },
-        "Hero RandomMage": {
-            "prefix": "",
+        "Hero EarthBender Weapon Impact VFX": {
+            "prefix": "ZA",
+            "parent": "_FX OneShot SelfRemoving",
+            "modelActor": {
+                "resource": {
+                    "type": "ParticleAnimation",
+                    "name": "vfx_wildverse_GetHitDirectional_2"
+                }
+            }
+        },
+        "Hero IceMage": {
+            "prefix": "ZA",
             "parent": "_StandardUnit DecayOnDeath",
             "unitActor": {
                 "resource": {
@@ -233,18 +675,26 @@
                 "walkAnimationSpeed": 1.75
             }
         },
-        "Hero RandomMage Weapon Attack FX": {
+        "Hero IceMage Weapon Attack FX": {
+            "prefix": "ZA",
             "parent": "_FX Attack SingleTarget",
             "actionActor": {
-                "effect": "Hero RandomMage Weapon Launch",
-                "launchModel": "Hero RandomMage Weapon Launch SFX"
+                "effect": "Hero IceMage Weapon Launch",
+                "launchModel": "Hero IceMage Weapon Launch SFX"
             }
         },
-        "Hero RandomMage Weapon Impact FX": {
+        "Hero IceMage Weapon Impact FX": {
+            "prefix": "ZA",
             "parent": "_FX OneShot SelfRemoving",
-            "modelActor": {}
+            "modelActor": {
+                "resource": {
+                    "type": "ParticleAnimation",
+                    "name": "vfx_generic_area_cone_ice"
+                }
+            }
         },
-        "Hero RandomMage Weapon Launch SFX": {
+        "Hero IceMage Weapon Launch SFX": {
+            "prefix": "ZA",
             "parent": "_SFX OneShot SelfRemoving",
             "modelActor": {
                 "resource": {
@@ -253,13 +703,227 @@
                 }
             }
         },
-        "Hero RandomMage Weapon Missile": {
+        "Hero IceMage Weapon Missile": {
             "prefix": "",
             "unitActor": {
                 "resource": {
                     "type": "ParticleAnimation",
                     "name": "vfx_icemage_weapon_missile"
                 }
+            }
+        },
+        "Hero RandomMage": {
+            "unitActor": {
+                "resource": {
+                    "type": "GpuAnimation"
+                }
+            }
+        },
+        "Hero RandomMage Weapon Attack FX": {
+            "actionActor": {
+                "effect": "Hero IceMage Weapon Launch",
+                "launchModel": "Hero IceMage Weapon Launch SFX"
+            }
+        },
+        "HeroSelected VFX": {
+            "prefix": "ZA",
+            "modelActor": {
+                "resource": {
+                    "type": "ParticleAnimation",
+                    "name": "vfx_indicator_hero"
+                }
+            }
+        },
+        "HobGoblin Dies FX": {
+            "prefix": "ZA",
+            "actionActor": {
+                "effect": "HobGoblin Dies FX",
+                "launchModel": "HobGoblin Dies SFX"
+            }
+        },
+        "HobGoblin Dies SFX": {
+            "prefix": "ZA",
+            "modelActor": {
+                "resource": {
+                    "type": "Sound",
+                    "name": "hobgoblin_die"
+                },
+                "events": [
+                    {
+                        "actorTerm": {
+                            "actorCreate": {}
+                        },
+                        "actions": [
+                            {
+                                "playAnimation": {}
+                            }
+                        ]
+                    },
+                    {
+                        "actorTerm": {
+                            "animationFinish": {}
+                        },
+                        "actions": [
+                            {
+                                "destroy": {}
+                            }
+                        ]
+                    }
+                ],
+                "selectionScale": {
+                    "x": 1,
+                    "y": 1,
+                    "z": 1
+                },
+                "scaleMultiplier": {
+                    "x": 1,
+                    "y": 1,
+                    "z": 1
+                }
+            }
+        },
+        "HobGoblin Weapon FX": {
+            "prefix": "ZA",
+            "parent": "_FX OneShot SelfRemoving",
+            "actionActor": {
+                "effect": "HobGoblin Weapon FX",
+                "launchModel": "HobGoblin Weapon VFX",
+                "additionalModels": [
+                    {
+                        "launchModel": "HobGoblin Weapon SFX"
+                    }
+                ]
+            }
+        },
+        "HobGoblin Weapon SFX": {
+            "prefix": "ZA",
+            "parent": "_SFX OneShot SelfRemoving",
+            "modelActor": {
+                "resource": {
+                    "type": "Sound",
+                    "name": "golem_weapon_impact"
+                },
+                "events": [
+                    {
+                        "actorTerm": {
+                            "actorCreate": {}
+                        },
+                        "actions": [
+                            {
+                                "playAnimation": {}
+                            }
+                        ]
+                    },
+                    {
+                        "actorTerm": {
+                            "animationFinish": {}
+                        },
+                        "actions": [
+                            {
+                                "destroy": {}
+                            }
+                        ]
+                    }
+                ],
+                "selectionScale": {
+                    "x": 1,
+                    "y": 1,
+                    "z": 1
+                },
+                "scaleMultiplier": {
+                    "x": 1,
+                    "y": 1,
+                    "z": 1
+                }
+            }
+        },
+        "HobGoblin Weapon VFX": {
+            "prefix": "ZA",
+            "parent": "_FX OneShot SelfRemoving",
+            "modelActor": {
+                "resource": {
+                    "type": "ParticleAnimation",
+                    "name": "vfx_goblinchef_weapon_impact"
+                },
+                "events": [
+                    {
+                        "actorTerm": {
+                            "actorCreate": {}
+                        },
+                        "actions": [
+                            {
+                                "playAnimation": {}
+                            },
+                            {
+                                "createTimer": {
+                                    "name": "FailsafeRemove",
+                                    "duration": 5
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "actorTerm": {
+                            "animationFinish": {}
+                        },
+                        "actions": [
+                            {
+                                "destroy": {}
+                            }
+                        ]
+                    },
+                    {
+                        "actorTerm": {
+                            "onTimer": {
+                                "name": "FailsafeRemove"
+                            }
+                        },
+                        "actions": [
+                            {
+                                "destroy": {}
+                            }
+                        ]
+                    }
+                ],
+                "selectionScale": {
+                    "x": 1,
+                    "y": 1,
+                    "z": 1
+                },
+                "scaleMultiplier": {
+                    "x": 1,
+                    "y": 1,
+                    "z": 1
+                }
+            }
+        },
+        "Hobgoblin MeleeUnit": {
+            "prefix": "ZA",
+            "parent": "_StandardUnit DecayOnDeath",
+            "unitActor": {
+                "resource": {
+                    "type": "GpuAnimation",
+                    "name": "hobgoblin_gold"
+                },
+                "scaleMultiplier": {
+                    "x": 1.2,
+                    "y": 1.2,
+                    "z": 1.2
+                }
+            }
+        },
+        "Minion MeleeUnit": {
+            "prefix": "ZA",
+            "unitActor": {
+                "resource": {
+                    "type": "GpuAnimation",
+                    "name": "fantasy_unit_zombie_pocketquest"
+                },
+                "eventMacros": [
+                    "Events StandardUnit AttackAnimation",
+                    "Events StandardUnit DeathAnimation",
+                    "Events StandardUnit DeathAnimation Decay"
+                ]
             }
         },
         "RandomSpike Action": {
@@ -364,6 +1028,144 @@
                     }
                 ],
                 "modelScale": 1
+            }
+        },
+        "SummonGolem FX": {
+            "prefix": "ZA",
+            "actionActor": {
+                "effect": "SummonGolem FX",
+                "launchModel": "SummonGolem VFX",
+                "launchModelDetached": true,
+                "additionalModels": [
+                    {
+                        "launchModel": "SummonGolemSFX",
+                        "launchModelDetached": true
+                    }
+                ]
+            }
+        },
+        "SummonGolem VFX": {
+            "prefix": "ZA",
+            "parent": "_FX OneShot SelfRemoving",
+            "modelActor": {
+                "resource": {
+                    "type": "ParticleAnimation",
+                    "name": "vfx_dwarfsmith_hammercrash_impact_aoe"
+                }
+            }
+        },
+        "SummonGolemSFX": {
+            "prefix": "ZA",
+            "parent": "_FX OneShot SelfRemoving",
+            "modelActor": {
+                "resource": {
+                    "type": "Sound",
+                    "name": "scorcher_meteorstrike_impact"
+                }
+            }
+        },
+        "SummonedGolem": {
+            "prefix": "ZA",
+            "parent": "_StandardUnit DecayOnDeath",
+            "unitActor": {
+                "resource": {
+                    "type": "GpuAnimation",
+                    "name": "golem_crystal_red"
+                },
+                "events": [
+                    {
+                        "actorTerm": {
+                            "selectionOn": {
+                                "selectionType": 0
+                            }
+                        },
+                        "actions": [
+                            {
+                                "create": {
+                                    "actor": "HeroSelected VFX"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "actorTerm": {
+                            "selectionOff": {}
+                        },
+                        "actions": [
+                            {
+                                "destroy": {
+                                    "actor": "HeroSelected VFX"
+                                }
+                            }
+                        ]
+                    }
+                ],
+                "eventMacros": [
+                    "Events StandardUnit Selectable"
+                ]
+            }
+        },
+        "SummonedGolem MeleeImpact FX": {
+            "prefix": "ZA",
+            "parent": "_FX Attack SingleTarget",
+            "actionActor": {
+                "effect": "SummonedGolem MeleeDamage",
+                "launchModel": "SummonedGolem MeleeImpact VFX",
+                "impactModelDetached": false,
+                "additionalModels": [
+                    {
+                        "launchModel": "SummonedGolem MeleeImpact SFX"
+                    }
+                ]
+            }
+        },
+        "SummonedGolem MeleeImpact SFX": {
+            "prefix": "ZA",
+            "parent": "_SFX OneShot SelfRemoving",
+            "modelActor": {
+                "resource": {
+                    "type": "Sound",
+                    "name": "tower_stoneguard_troop_weapon_impact"
+                }
+            }
+        },
+        "SummonedGolem MeleeImpact VFX": {
+            "prefix": "ZA",
+            "parent": "_FX OneShot SelfRemoving",
+            "modelActor": {
+                "resource": {
+                    "type": "ParticleAnimation",
+                    "name": "vfx_wildverse_GetHitDirectional"
+                }
+            }
+        },
+        "Template ModelActor SFX": {
+            "prefix": "ZA",
+            "template": true,
+            "parent": "_SFX OneShot SelfRemoving",
+            "modelActor": {
+                "resource": {
+                    "type": "Sound"
+                }
+            }
+        },
+        "Template ModelActor VFX": {
+            "prefix": "ZA",
+            "template": true,
+            "parent": "_FX OneShot SelfRemoving",
+            "modelActor": {
+                "resource": {
+                    "type": "ParticleAnimation"
+                }
+            }
+        },
+        "Template Persistent FX": {
+            "prefix": "ZA",
+            "template": true,
+            "actionActor": {
+                "additionalModels": [
+                    {}
+                ]
             }
         },
         "_CBuilding": {

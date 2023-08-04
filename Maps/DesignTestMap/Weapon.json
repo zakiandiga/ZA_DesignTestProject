@@ -1,16 +1,58 @@
 {
     "weapons": {
-        "Hero EarthBender Weapon": {
+        "Goblin MeleeWeapon": {
             "prefix": "ZA",
             "parent": "_StandardMeleeWeapon",
-            "effectName": "Hero EarthBender Weapon Damage",
+            "effectName": "Goblin MeleeWeapon FX",
             "stats": {
                 "period": 1.2
             }
         },
-        "Hero RandomMage Weapon": {
+        "Hero EarthBender Weapon": {
+            "prefix": "ZA",
+            "parent": "_StandardMeleeWeapon",
+            "effectName": "Hero EarthBender Weapon Impact FX",
+            "stats": {
+                "period": 1.2
+            }
+        },
+        "Hero IceMage Weapon": {
+            "prefix": "ZA",
             "parent": "_StandardRangedWeapon",
-            "effectName": "Hero RandomMage Weapon Launch"
+            "effectName": "Hero IceMage Weapon Launch"
+        },
+        "Hero RandomMage Weapon": {
+            "effectName": "Hero IceMage Weapon Launch"
+        },
+        "HobGoblin Weapon": {
+            "prefix": "ZA",
+            "parent": "_StandardMeleeWeapon",
+            "effectName": "HobGoblin Weapon FX",
+            "stats": {
+                "backSwing": 0.8,
+                "period": 1.8
+            }
+        },
+        "Minion MeleeUnit Weapon": {
+            "prefix": "ZA",
+            "parent": "_StandardMeleeWeapon",
+            "effectName": "Minion Damage"
+        },
+        "SummonedGolem MeleeWeapon": {
+            "prefix": "ZA",
+            "effectName": "SummonedGolem MeleeImpact FX",
+            "stats": {
+                "preSwing": 0.5,
+                "backSwing": 0.5,
+                "period": 1,
+                "range": 0.25,
+                "scanRange": 3
+            },
+            "distanceExtendMode": 1,
+            "targetFilter": {
+                "ground": 1,
+                "invulerable": 2
+            }
         }
     }
 }

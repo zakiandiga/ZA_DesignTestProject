@@ -1,15 +1,31 @@
 {
     "projectInfo": {
         "type": 0,
-        "version": "0.0.1",
+        "version": "0.2.1",
         "projectName": "ZA_DesignTestProject",
-        "entryMap": "Maps/EntryMap"
+        "entryMap": "Maps/DesignTestMap"
     },
     "input": {
         "keyMappings": [
             {
                 "name": "Ability01",
                 "key": 113
+            },
+            {
+                "name": "LevelUpDebug",
+                "key": 48
+            },
+            {
+                "name": "Ability02",
+                "key": 119
+            },
+            {
+                "name": "Select01",
+                "key": 49
+            },
+            {
+                "name": "Select02",
+                "key": 50
             }
         ]
     },

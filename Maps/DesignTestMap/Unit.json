@@ -1,33 +1,103 @@
 {
     "units": {
-        "BoulderBomb Explosion VFX": {
+        "Ancient Tree": {
             "prefix": "ZA",
             "baseUnit": "_CUnit",
             "components": {
-                "unit": {
-                    "unitType": 0
-                },
                 "unitStats": {
-                    "ground": false,
+                    "radius": 1.2,
                     "selectable": false,
-                    "ignoreCollision": true,
-                    "ignorePathing": true
+                    "targetPriority": 6
                 },
                 "health": {
-                    "maxHealth": 0
+                    "maxHealth": 800
+                },
+                "behavior": {
+                    "doNothing": {}
                 }
+            },
+            "healthBar": {
+                "type": 0
+            },
+            "unitEventTriggers": {
+                "onUnitDeathEffects": [
+                    "BoulderBomb Explosion FX"
+                ]
             }
         },
         "BoulderBomb Projectile": {
             "prefix": "ZA",
             "baseUnit": "_CMissile"
         },
+        "EnemySpawner": {
+            "prefix": "ZA",
+            "baseUnit": "_StandardHelper",
+            "components": {
+                "unitStats": {
+                    "ignorePathing": true
+                }
+            }
+        },
+        "Goblin MeleeUnit": {
+            "prefix": "ZA",
+            "baseUnit": "Minion MeleeUnit",
+            "components": {
+                "health": {
+                    "maxHealth": 15
+                },
+                "behavior": {
+                    "genericControllableUnit": {
+                        "leashResetRadius": 2,
+                        "forceRescan": {
+                            "period": 3
+                        }
+                    }
+                },
+                "unitValue": {
+                    "goldCost": 10
+                }
+            },
+            "references": {
+                "weaponList": [
+                    "Goblin MeleeWeapon"
+                ],
+                "abilityList": [
+                    "Enemy LevelUp"
+                ]
+            },
+            "level": 1,
+            "bindAbilityUi": false,
+            "healthBar": {
+                "showWhenFull": false
+            },
+            "unitEventTriggers": {
+                "onUnitDeathEffects": [
+                    "Goblin Dies"
+                ]
+            }
+        },
+        "GoblinArcher RangeUnit": {
+            "prefix": "ZA",
+            "baseUnit": "_CUnit",
+            "references": {
+                "weaponList": [
+                    "Standard RangedUnit Weapon"
+                ],
+                "abilityList": [
+                    "Enemy LevelUp"
+                ]
+            }
+        },
         "Hero EarthBender": {
             "prefix": "ZA",
             "baseUnit": "_CUnit",
             "components": {
+                "unitStats": {
+                    "targetPriority": 5,
+                    "selectionPriority": 10
+                },
                 "health": {
-                    "maxHealth": 100,
+                    "maxHealth": 1000,
                     "regeneration": 2,
                     "regenerationDelay": 0.5
                 },
@@ -47,11 +117,21 @@
                     "Hero EarthBender Weapon"
                 ],
                 "abilityList": [
-                    "BoulderBomb"
+                    "BoulderBomb",
+                    "SummonGolem"
                 ]
+            },
+            "level": 1,
+            "bindAbilityUi": false,
+            "healthBar": {
+                "type": 3
+            },
+            "miniMapConfig": {
+                "showOnMiniMap": false
             }
         },
-        "Hero RandomMage": {
+        "Hero IceMage": {
+            "prefix": "ZA",
             "baseUnit": "_CUnit",
             "components": {
                 "health": {
@@ -79,8 +159,95 @@
                 ]
             }
         },
-        "Hero RandomMage Weapon Missile": {
+        "Hero IceMage Weapon Missile": {
+            "prefix": "ZA",
             "baseUnit": "_CMissile"
+        },
+        "Hero RandomMage": {},
+        "Hobgoblin MeleeUnit": {
+            "prefix": "ZA",
+            "baseUnit": "Minion MeleeUnit",
+            "components": {
+                "health": {
+                    "maxHealth": 30,
+                    "regeneration": 2,
+                    "regenerationDelay": 1
+                },
+                "movement": {
+                    "moveSpeed": 1.6
+                },
+                "behavior": {
+                    "genericControllableUnit": {
+                        "leashResetRadius": 2,
+                        "forceRescan": {
+                            "period": 5
+                        }
+                    }
+                }
+            },
+            "references": {
+                "weaponList": [
+                    "HobGoblin Weapon"
+                ],
+                "abilityList": [
+                    "Enemy LevelUp"
+                ]
+            },
+            "level": 1,
+            "bindAbilityUi": false,
+            "healthBar": {
+                "showWhenFull": true
+            },
+            "unitEventTriggers": {
+                "onUnitDeathEffects": [
+                    "HobGoblin Dies FX"
+                ]
+            }
+        },
+        "Minion MeleeUnit": {
+            "prefix": "ZA",
+            "baseUnit": "_CUnit",
+            "components": {
+                "health": {
+                    "maxHealth": 100
+                }
+            },
+            "level": 1,
+            "bindAbilityUi": false,
+            "healthBar": {
+                "showWhenFull": true
+            }
+        },
+        "SummonedGolem": {
+            "prefix": "ZA",
+            "baseUnit": "_CUnit",
+            "components": {
+                "unitStats": {
+                    "selectable": true,
+                    "targetPriority": 2
+                },
+                "health": {
+                    "maxHealth": 20
+                },
+                "behavior": {
+                    "genericControllableUnit": {
+                        "leashRadius": 8
+                    }
+                }
+            },
+            "references": {
+                "weaponList": [
+                    "SummonedGolem MeleeWeapon"
+                ],
+                "behaviorList": [
+                    "SummonedGolem Timer"
+                ]
+            },
+            "unitEventTriggers": {
+                "onUnitCreateEffects": [
+                    "SummonGolem FX"
+                ]
+            }
         }
     }
 }

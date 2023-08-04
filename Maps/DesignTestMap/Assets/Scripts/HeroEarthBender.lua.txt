@@ -1,0 +1,50 @@
+-- HeroBase child EarthBender, functional inheritance demonstration
+-- MODULE
+local core = require("core")
+
+local HeroBase = require("HeroBase")
+
+local EarthBender = {}
+setmetatable(EarthBender, { __index = HeroBase })
+
+-- CONSTANTS
+EarthBender.ability_filter = { family = "EarthBender Ability"}
+local ability = {
+    "BoulderBomb", 
+    "SummonGolem"
+}
+
+EarthBender.hero_unit_data = DCEI.Unit("Hero EarthBender")
+
+-- FUNCTIONS
+function EarthBender:New(position)    
+    local instance = setmetatable({}, {__index = EarthBender})
+    instance.hero_unit = DCEI.CreateUnit(1,1, self.hero_unit_data, position.x, position.y)
+    
+    instance:SelectHero()
+    instance:RegisterTriggersAndEvents()
+    return instance
+end
+
+function EarthBender:CastAbility01()
+    DCEI.EnterTargetingMode(self.hero_unit, ability[1])
+end
+
+function EarthBender:CastAbility02()
+    DCEI.CastAbilityAtUnit(ability[2], self.hero_unit, self.hero_unit)
+end
+
+function EarthBender:OnAbility01Down()
+    if DCEI.IsUnitSelected(self.hero_unit) then
+        self:CastAbility01()
+    end
+end
+
+function EarthBender:OnAbility02Down()
+    if DCEI.IsUnitSelected(self.hero_unit) then
+        self:CastAbility02()
+    end
+end
+
+return EarthBender
+

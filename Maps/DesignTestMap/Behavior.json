@@ -1,1 +1,38 @@
-{}
+{
+    "behaviors": {
+        "Enemy LevelUp": {
+            "prefix": "ZA",
+            "refreshStack": true,
+            "defaultStackType": {
+                "refreshStack": true
+            },
+            "modifiers": {
+                "maxHealthModifier": {
+                    "additiveFactor": 0.1
+                },
+                "weaponDamageModifier": {
+                    "additiveFactor": 0.1
+                }
+            }
+        },
+        "Hero Move": {
+            "prefix": "ZA",
+            "refreshStack": true,
+            "unitModifier": {
+                "ownership": 3,
+                "targetBehaviorType": 1
+            },
+            "defaultStackType": {},
+            "startEffect": "Command Move"
+        },
+        "SummonedGolem Timer": {
+            "prefix": "ZA",
+            "unitModifier": {
+                "targetBehaviorType": 1
+            },
+            "defaultStackType": {},
+            "duration": 10,
+            "finalEffect": "SelfDestruct"
+        }
+    }
+}

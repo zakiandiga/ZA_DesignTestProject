@@ -1,0 +1,48 @@
+-- HeroBase child IceMage, functional inheritance demonstration, though the functions are not as fleshed out as EarthBender. This is mainly for demonstration purpose
+-- MODULE
+local core = require("core")
+
+local HeroBase = require("HeroBase")
+
+local IceMage = {}
+setmetatable(IceMage, { __index = HeroBase })
+
+-- CONSTANTS
+IceMage.ability_filter = { family = "IceMage Ability"}
+local ability = {
+    "IceWall", 
+    "FreezingBlast"
+}
+
+IceMage.hero_unit_data = DCEI.Unit("Hero IceMage")
+
+-- FUNCTIONS
+function IceMage:New(position)    
+    local instance = setmetatable({}, {__index = IceMage})
+    instance.hero_unit = DCEI.CreateUnit(1,1, self.hero_unit_data, position.x, position.y)
+    
+    instance:RegisterTriggersAndEvents()
+    return instance
+end
+
+function IceMage:CastAbility01()
+    --IceWall implementation
+end
+
+function IceMage:CastAbility02()
+    --FreezingBlast implementation
+end
+
+function IceMage:OnAbility01Down()
+    if DCEI.IsUnitSelected(self.hero_unit) then
+        self:CastAbility01()
+    end
+end
+
+function IceMage:OnAbility02Down()
+    if DCEI.IsUnitSelected(self.hero_unit) then
+        self:CastAbility02()
+    end
+end
+
+return IceMage

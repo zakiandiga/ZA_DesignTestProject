@@ -1,0 +1,18 @@
+-- Utilitiy functions, current purpose is to demonstrate deep copy concept
+-- used at Enemy.lua, CreateNewSpawnPosition() just for demonstration to make an alternate spawn point without changing the current one We can call it, but it has nothing to do with the game mechanic currently.
+
+ function DeepCopy(source)
+    local clone = {}
+    for key, value in pairs(source) do
+        if type(value) == "table" then
+            clone[key] = DeepCopy(value)
+        else
+            clone[key] = value
+        end
+    end
+    return clone
+end
+
+return {
+    DeepCopy = DeepCopy
+}

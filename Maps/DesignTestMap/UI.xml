@@ -1,1 +1,68 @@
-<UI xmlns:bind="https://platform.wildsky.dev/xml/ui/bind" />
+<UI xmlns:bind="https://platform.wildsky.dev/xml/ui/bind">
+    <Frame layout="legacy" bottomAlignmentInParent="true" rightAlignmentInParent="true" padding="20" name="EnemyInfo">
+        <Frame id="Background" frameImage="frame_slot00" padding="30">
+            <VStack id="Stack" spacing="10">
+                <include id="level_text" name="ZA/EnemyLevelText" />
+                <include id="button_level" name="ZA/Button" />
+            </VStack>
+        </Frame>
+    </Frame>
+    <Frame layout="legacy" name="GameOverWindow">
+        <Frame matchParentHeight="true" matchParentWidth="true" frameImageColor="r: 0, g: 0, b: 0, a: 0.6" blockInput="true" layout="legacy" />
+        <Frame id="Background" frameImage="frame_slot00" height="500" width="800">
+            <VStack id="Stack" spacing="10">
+                <include id="level_text" name="ZA/GameOverText" />
+                <include id="button_restart" name="ZA/ButtonRestart" />
+            </VStack>
+        </Frame>
+    </Frame>
+    <Frame layout="legacy" name="OpeningWindow">
+        <Frame matchParentHeight="true" matchParentWidth="true" frameImageColor="r: 0, g: 0, b: 0, a: 0.6" blockInput="true" layout="legacy" />
+        <Frame id="Background" frameImage="frame_slot00" height="500" width="800">
+            <VStack id="Stack" spacing="10">
+                <include id="level_text" name="ZA/OpeningText" />
+                <include id="button_start" name="ZA/ButtonStart" />
+            </VStack>
+        </Frame>
+    </Frame>
+    <Frame layout="legacy" bottomAlignmentInParent="true" leftAlignmentInParent="true" padding="20" name="PlayerAbility">
+        <Frame id="Background" padding="20">
+            <HStack id="Stack" spacing="20">
+                <include id="ability_1" name="ZA/AbilityButton" />
+                <include id="ability_2" name="ZA/AbilityButton" />
+            </HStack>
+        </Frame>
+    </Frame>
+    <Frame layout="legacy" name="ZA/AbilityButton">
+        <Button id="Button" height="80" width="130" enable="true">
+            <Text id="Label" text="Ability 99" fontSizeMin="18" fontSizeMax="32" maxWidth="188" maxHeight="26" />
+        </Button>
+    </Frame>
+    <Frame layout="legacy" name="ZA/Button">
+        <Button id="Button" height="80" width="180" enable="true">
+            <Text id="Label" text="Level Up Enemies" fontSizeMin="18" fontSizeMax="32" maxWidth="188" maxHeight="26" />
+        </Button>
+    </Frame>
+    <Frame layout="legacy" name="ZA/ButtonRestart">
+        <Button id="Button" height="80" width="130" enable="true">
+            <Text id="Label" text="Play Again" fontSizeMin="18" fontSizeMax="32" maxWidth="188" maxHeight="26" />
+        </Button>
+    </Frame>
+    <Frame layout="legacy" name="ZA/ButtonStart">
+        <Button id="Button" height="80" width="130" enable="true">
+            <Text id="Label" text="Start!" fontSizeMin="18" fontSizeMax="32" maxWidth="188" maxHeight="26" />
+        </Button>
+    </Frame>
+    <Frame layout="legacy" name="ZA/EnemyLevelText">
+        <Text id="Text" text="Enemy Level: 00" fontSizeMax="24" fontSizeMin="14" maxHeight="28" maxWidth="188" layout="flex" />
+    </Frame>
+    <Frame layout="legacy" height="300" width="600" name="ZA/GameOverText">
+        <VStack id="Stack" spacing="50">
+            <Text id="TextTitle" text="Game Over!" fontSizeMax="36" fontSizeMin="28" maxHeight="28" maxWidth="400" />
+            <Text id="TextScore" text="Your score: " fontSizeMax="36" fontSizeMin="28" maxHeight="28" maxWidth="400" />
+        </VStack>
+    </Frame>
+    <Frame layout="legacy" height="300" width="600" name="ZA/OpeningText">
+        <Text id="Text" text="Defend the ancient tree from goblins!" fontSizeMax="36" fontSizeMin="28" maxHeight="28" maxWidth="400" />
+    </Frame>
+</UI>

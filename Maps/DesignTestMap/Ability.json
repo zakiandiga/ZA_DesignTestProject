@@ -1,21 +1,50 @@
 {
     "abilities": {
+        "Base Move": {
+            "prefix": "ZA",
+            "abilityType": 1,
+            "castType": 1,
+            "targetRangeMode": 0,
+            "effect": "Command Move"
+        },
         "BoulderBomb": {
             "prefix": "ZA",
+            "abilityType": 1,
+            "targetRangeMode": 0,
             "effect": "BoulderBomb Launch",
             "stats": {
-                "range": 99
+                "period": 5,
+                "range": 8,
+                "arc": 45
             },
+            "family": "EarthBender Ability",
+            "canCastWhileMoving": false,
             "targetFilter": {
                 "player": 2,
                 "ally": 2
-            }
+            },
+            "targetingValidCursorActor": "Cursor Valid FX",
+            "targetingInvalidCursorActor": "Cursor Invalid FX"
+        },
+        "Enemy LevelUp": {
+            "prefix": "ZA",
+            "effect": "Enemy LevelUp FX"
         },
         "RandomSpike": {
             "effect": "RandomSpike Delay",
             "stats": {
                 "range": 99
             }
+        },
+        "SummonGolem": {
+            "prefix": "ZA",
+            "abilityType": 2,
+            "effect": "SummonGolem Spawn",
+            "stats": {
+                "period": 17,
+                "range": 1
+            },
+            "family": "EarthBender Ability"
         }
     }
 }

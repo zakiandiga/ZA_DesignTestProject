@@ -1,0 +1,128 @@
+-- Quick UI implementation
+-- LIBRARIES
+local core = require("core")
+local gmui = require("gmui")
+
+-- SCRIPTS
+local ui = { Root = DCEI.GetUiRootFrame() }
+local enemy = require("Enemy")
+local HeroBase = require("HeroBase")
+
+local registered_hero
+
+local registered_heroes_table = {}
+
+local start_layout
+local map_name = "Maps/DesignTestMap"
+local project_name = "ZA_DesignTestProject"
+local current_score = 0
+
+--FUNCTIONS
+function ui:UpdateScore(value)
+    current_score = value
+    local text = "Score: " .. tostring(current_score)
+    DCEI.ShowObjectiveText(text)
+end
+
+-- Enemy Level Up Button
+function ui:LevelUpEnemy()
+    local button_layout = ui.enemy_info.button_level
+    DCEI.SetOnUpCallback(button_layout.Button, ui.ClickButton)
+end
+
+function ui:AbilityButton()
+    local button_ability1_layout = ui.player_ability.ability_1
+    local button_ability2_layout = ui.player_ability.ability_2
+
+    DCEI.SetTextFrameText(button_ability1_layout.Label, "Q")
+    DCEI.SetTextFrameText(button_ability2_layout.Label, "W")
+    DCEI.SetOnUpCallback(button_ability1_layout.Button, ui.Ability1)
+    DCEI.SetOnUpCallback(button_ability2_layout.Button, ui.Ability2)
+end
+
+function ui.ClickButton()
+    enemy:InitiateGlobalLevelUp()
+    ui:UpdateLevelText()
+end
+
+function ui.Ability1()
+    if registered_hero and DCEI.IsUnitSelected(registered_hero.hero_unit) then
+        registered_hero:OnAbility01Down()
+    end    
+end
+
+function ui.Ability2()
+    if registered_hero and DCEI.IsUnitSelected(registered_hero.hero_unit) then
+        registered_hero:OnAbility02Down()
+    end   
+end
+
+function ui:UpdateLevelText()
+    local text_level_layout = ui.enemy_info.level_text.Text
+    local text_level = "Enemy Level: " .. enemy.enemy_level
+    DCEI.SetTextFrameText(text_level_layout, text_level)
+end
+
+function ui:InGameLayout()
+    ui.enemy_info = gmui.Layout:New({
+        recursive_hookup = true,
+        name = "EnemyInfo",
+    })
+
+    ui.player_ability = gmui.Layout:New({
+        recursive_hookup = true,
+        name = "PlayerAbility",
+    })
+end
+
+function ui.StartScreen()
+    ui.start_screen = gmui.Layout:New({
+        recursive_hookup = true,
+        name = "OpeningWindow"
+    })
+
+    start_layout = ui.start_screen
+    local start_button = ui.start_screen.button_start.Button
+
+    DCEI.SetOnUpCallback(start_button, ui.OnPressStart)
+end
+
+function ui:OnPressStart()
+   
+    start_layout.Hide(start_layout)
+    ui:InGameLayout()
+    ui:UpdateLevelText()
+    ui:LevelUpEnemy()
+    ui:AbilityButton()
+    core.SetGameSpeed(1)
+end
+
+function ui:HandleGameOver()
+    ui.game_over = gmui.Layout:New({
+        recursive_hookup = true,
+        name = "GameOverWindow"
+    })
+    core.SetGameSpeed(0)
+    local button = ui.game_over.button_restart.Button
+    local score_text = ui.game_over.level_text.TextScore
+    DCEI.SetTextFrameText(score_text, "Your score is " .. current_score .. " !")
+    DCEI.SetOnUpCallback(button, ui.RestartGame)
+end
+
+function ui:RestartGame()
+    DCEI.PlayLevel(map_name, project_name, nil, nil )
+end
+
+function ui:InitializeUi(...)
+    for i, value in ipairs({...})do
+        if value then
+            table.insert(registered_heroes_table, value)
+        end
+    end
+    registered_hero = select(1,...)
+
+    ui:StartScreen()
+    
+end
+
+return ui

@@ -1,0 +1,54 @@
+-- Hero Base class, functional inheritance demonstration
+-- MODULE
+local core = require("core")
+
+local HeroBase = {}
+HeroBase.__index = HeroBase
+
+-- CONSTANTS
+HeroBase.ability_filter = { family = "Hero Ability"}
+
+-- VIRTUAL FUNCTIONS
+function HeroBase:New(unit_data, position)
+    local instance = setmetatable({}, self)    
+    instance.spawn_position = position
+
+    instance.hero_unit = DCEI.CreateUnit(1,1, unit_data, self.spawn_position.x, self.spawn_position.y)
+
+    return instance
+end
+
+function HeroBase:CastAbility01()
+    DCEI.LogMessage("HeroBase: Cast Ability 01!")
+end
+
+function HeroBase:CastAbility02()
+    DCEI.LogMessage("HeroBase: Cast Ability 02")
+end
+
+function HeroBase:OnAbility01Down()
+    if DCEI.IsUnitSelected(self.hero_unit) then
+        self:CastAbility01()
+    end
+end
+
+function HeroBase:OnAbility02Down()
+    if DCEI.IsUnitSelected(self.hero_unit) then
+        self:CastAbility02()
+    end
+end
+
+function HeroBase:SelectHero()
+    DCEI.SelectUnit(self.hero_unit)
+end
+
+-- EVENTS REGISTRATION
+function HeroBase:RegisterTriggersAndEvents()
+    DCEI.TriggerAddMappedKeyDownEvent("Ability01", function() self:OnAbility01Down() end)
+    DCEI.TriggerAddMappedKeyDownEvent("Ability02", function() self:OnAbility02Down() end)
+    DCEI.TriggerAddCastAbilityEvent(DCEI.UnitAny, function() self:SelectHero() end, true, self.ability_filter)
+    DCEI.TriggerAddMappedKeyDownEvent("Select01", function() self:SelectHero() end)
+end
+
+
+return HeroBase
